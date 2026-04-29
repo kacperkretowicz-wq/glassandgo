@@ -36,8 +36,10 @@ export default function App() {
     }, 300);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
+  setIsSubmitting(true);
+
   const formData = new FormData(e.currentTarget);
   
   const data = {
