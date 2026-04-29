@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, Clock, ShieldCheck, ChevronRight, X, Smartphone, Zap, Check, Layers, Droplets, Fingerprint, EyeOff, Maximize, Award } from 'lucide-react';
+import { MapPin, Clock, ShieldCheck, ChevronRight, X, Smartphone, Check, Droplets, EyeOff, Maximize, Award } from 'lucide-react';
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,7 +36,7 @@ export default function App() {
     }, 300);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
