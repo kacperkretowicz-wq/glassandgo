@@ -80,5 +80,4 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsSubmitting(false);
   }
 };
-
-    
+}
