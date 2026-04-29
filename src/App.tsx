@@ -40,6 +40,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   setIsSubmitting(true);
 
+  const SERVICE_ID = "service_f5ml9gh";
+  const TEMPLATE_ID = "template_1w6an8f";
+  const PUBLIC_KEY = "xO7V8fK_HTEd7vcL4";
+
   const formData = new FormData(e.currentTarget);
   
   const data = {
