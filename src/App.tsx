@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, Clock, ShieldCheck, ChevronRight, X, Smartphone, Check, Droplets, EyeOff, Maximize, Award } from 'lucide-react';
+import { MapPin, Clock, ShieldCheck, X, Smartphone, Check, Droplets, EyeOff, Maximize, Award } from 'lucide-react';
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,9 +36,48 @@ export default function App() {
     }, 300);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const formData = new FormData(e.currentTarget);
+  
+  const data = {
+    service_id: SERVICE_ID,
+    template_id: TEMPLATE_ID,
+    user_id: PUBLIC_KEY,
+    template_params: {
+      device: formData.get('Urządzenie'),
+      package: selectedPackage,
+      phone: formData.get('Telefon'),
+      address: formData.get('Adres'),
+      date: formData.get('Dzień'),
+      time: formData.get('Godzina'),
+      addon: isAddonSelected ? "TAK (+59 PLN)" : "NIE"
+    }
+  };
+
+  try {
+    const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      setIsSubmitted(true);
+    } else {
+      const errorText = await response.text();
+      alert(`Błąd EmailJS: ${errorText}`);
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Błąd połączenia. Sprawdź swój internet i spróbuj ponownie.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
     // Pobranie danych z formularza
     const formData = new FormData(e.target);
